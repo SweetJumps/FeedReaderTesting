@@ -30,7 +30,7 @@ $(function() {
         /* This test loops through each feed in the allFeeds object 
          * and ensures it has a URL defined and that the URL is not empty.
          */
-        it('are defined', function () {
+        it('URLs are defined and not empty', function () {
             for (let thisFeed of allFeeds) {
                 expect(thisFeed.url).toBeDefined();
                 expect(thisFeed.url.length).not.toBe(0);
@@ -40,7 +40,7 @@ $(function() {
         /* This test loops through each feed in the allFeeds object
          * and ensures it has a name defined and that the name is not empty.
          */
-        it('are defined', function () {
+        it('names are defined and not empty', function () {
             for (let thisFeed of allFeeds) {
                 expect(thisFeed.name).toBeDefined();
                 expect(thisFeed.name.length).not.toBe(0);
@@ -50,23 +50,32 @@ $(function() {
     });
 
 
-    /* This test suite tests menu related funcionality */
+    /* This test suite tests menu related functionality */
     describe('The menu', function () {
 
-        /* This test ensures the menu element is hidden by default.
+        /* This test ensures that the menu element is hidden by default.
          */
-        it('are defined', function () {
+        it('is hidden', function () {
             let menuStatus = document.querySelector("body");
-            console.log(menuStatus.classList.contains("menu-hidden"));
-            expect(menuStatus.classList.contains("menu-hidden")).toBe(true);
+            //console.log(menuStatus.classList.contains("menu-hidden"));
+            expect(menuStatus.classList.contains("menu-hidden")).toBeTruthy();
         });
 
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        /* This test ensures that the menu changes visibility when the menu icon
+         * is clicked. This test has two expectations: does the menu display when
+         * clicked and does it hide when clicked again.
+         */
+        it('changes visibility', function () {
+            let menuStatus = document.querySelector("body");
+            let menuElement = document.querySelector(".menu-icon-link");
+            menuElement.click();
+            expect(menuStatus.classList.contains("menu-hidden")).toBeFalsy();
+            menuElement.click();
+            expect(menuStatus.classList.contains("menu-hidden")).toBeTruthy();
+        });
+
+
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
