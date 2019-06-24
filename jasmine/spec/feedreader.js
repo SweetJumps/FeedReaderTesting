@@ -9,14 +9,14 @@
  * to ensure they don't run until the DOM is ready.
  */
 
-$(function() {
+$(function () {
 
-    describe('RSS Feeds', function() {
- 
+    describe('RSS Feeds', function () {
+
         /* This test makes sure that the allFeeds variable has 
          * been defined and that it is not empty.
          */
-        it('are defined', function() {
+        it('are defined', function () {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
@@ -81,8 +81,7 @@ $(function() {
         });
 
         it('has .entry element', function (done) {
-            let entryElements = document.querySelectorAll("a.entry-link");
-            console.log(entryElements.length);
+            let entryElements = document.querySelectorAll(".feed .entry");
             expect(entryElements.length).not.toBe(0);
             done();
         });
@@ -98,21 +97,23 @@ $(function() {
             textFeedDos;
 
         beforeEach(function (done) {
-            loadFeed(0, function() {
+            loadFeed(0, function () {
                 const feedElementUno = document.querySelector(".feed");
                 textFeedUno = feedElementUno.innerHTML;
-                done();
+
+                loadFeed(1, function () {
+                    const feedElementDos = document.querySelector(".feed");
+                    textFeedDos = feedElementDos.innerHTML;
+                    done();
+                });
             });
 
-            loadFeed(1, function () {
-                const feedElementDos = document.querySelector(".feed");
-                textFeedUno = feedElementDos.innerHTML;
-                done();
-            });
         });
 
-        it('feed uno is not the same as feed dos', function (done) {
+        it('feed uno is not the same as feed dos', function () {
+
             expect(textFeedUno === textFeedDos).toBeFalsy();
+
         });
 
     });
